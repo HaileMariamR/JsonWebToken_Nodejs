@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 import  User  from "../model/user.js";
 import jwt from 'jsonwebtoken';
 
+
 export const allroutes =  (app)=>{
 
     app.post("/register", async (req, res) => {
@@ -76,6 +77,7 @@ export const allroutes =  (app)=>{
                 );
 
                 currentUser.token = Generate_Token;
+            
                 res.send(`logged in succesfully ${Generate_Token}`)
 
             }
