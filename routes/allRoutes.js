@@ -57,6 +57,7 @@ export const allroutes =  (app)=>{
     app.post('/login' , (req, res)=>{
 
         try{
+            const {email , password} = req.body;
 
         }catch(error_occured){
             console.log(error_occured);
