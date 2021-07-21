@@ -59,6 +59,29 @@ export const allroutes =  (app)=>{
         try{
             const {email , password} = req.body;
 
+            if (!(email && password)) {
+                res.status(400).send("All input is required");
+              }
+            
+
+            const currentUser = User.findOne({email});
+            if (currentUser && bcrypt.compare(password , currentUser.password)){
+
+                const Generate_Token = jwt.sign(
+                    {user_id:currentUser._id , email}, 
+                    "my_secret", 
+                    {
+                        expiresIn:"2h"
+                    }
+                );
+
+                currentUser.token = Generate_Token;
+                res.send(`logged in succesfully ${Generate_Token}`)
+
+            }
+
+            res.send(400).send("Invalid Credentials");
+
         }catch(error_occured){
             console.log(error_occured);
         }
